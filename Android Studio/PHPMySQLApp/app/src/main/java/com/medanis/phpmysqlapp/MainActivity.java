@@ -2,28 +2,51 @@ package com.medanis.phpmysqlapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<String> adapter;
+    RequestQueue requestQueue;
+//    String insertUrl = "http://10.0.2.2/store/addValues.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +61,42 @@ public class MainActivity extends AppCompatActivity {
         // Executing the Connection Process
         new Connection().execute();
 
+        requestQueue = Volley.newRequestQueue(this);
+
+        Button sendButton = findViewById(R.id.sendButton);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Response.Listener<String> responseLisener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            int success = jsonResponse.getInt("success");
+                            if (success == 1){
+                                Toast.makeText(getApplicationContext(),"Data has been sent successfully",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Data sending error",Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                Send_Data send_Data = new Send_Data("car name",2121.00, "adadadd",responseLisener);
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(send_Data);
+            }
+        });
+
     }
+    String host = "http://10.0.2.2/store/cars.php";
+
     class Connection extends AsyncTask<String,String,String>{
 
         @Override
         protected String doInBackground(String... params) {
             String result ="";
-            String host = "http://10.0.2.2/store/cars.php";
             try {
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
@@ -98,4 +150,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 }
