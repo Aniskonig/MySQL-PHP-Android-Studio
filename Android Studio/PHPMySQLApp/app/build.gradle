@@ -23,10 +23,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility = kotlin_version
-        targetCompatibility = kotlin_version
-    }
 
 }
 
@@ -39,10 +35,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.mcxiaoke.volley:library:1.0.18'
 
     implementation 'androidx.core:core-ktx:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()
