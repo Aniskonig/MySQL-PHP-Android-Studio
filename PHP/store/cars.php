@@ -1,12 +1,12 @@
 <?php
 
 
-$host = "127.0.0.1";
+$host = "192.168.0.27";
 $user = 'root';
 $pwd ='';
 $db='store';
 
-$conn = mysqli_connect("127.0.0.1", $user,  $pwd, $db);
+$conn = mysqli_connect($host, $user,  $pwd, $db);
 
 if(!$conn){
 	die("Error in connection: " . mysqli_connect_error());
