@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     var adapter: ArrayAdapter<String>? = null
     var requestQueue: RequestQueue? = null
 
-    //    String insertUrl = "http://10.0.2.2/store/addValues.php";
+
     var context: Context = this@MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,23 +60,6 @@ class MainActivity : AppCompatActivity() {
             val p = "900"
             val d = " la description "
             Sending(n, p, d).execute()
-//            val responseLisener: Response.Listener<String> = Response.Listener { response ->
-//                Log.i("Reponse_innodev", response)
-//                try {
-//                    val jsonResponse = JSONObject(response)
-//                    val msg = jsonResponse.getString("message")
-//                    if (msg.startsWith("Ajout")) {
-//                        Toast.makeText(applicationContext, "Data has been sent successfully", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(applicationContext, "Data sending error", Toast.LENGTH_SHORT).show()
-//                    }
-//                } catch (e: JSONException) {
-//                    e.printStackTrace()
-//                }
-//            }
-//            val send_Data = Send_Data("car name", 2121.00, "adadadd", responseLisener)
-//            val queue = Volley.newRequestQueue(this@MainActivity)
-//            queue.add(send_Data)
         }
     }
 

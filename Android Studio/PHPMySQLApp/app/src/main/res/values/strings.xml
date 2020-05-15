@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PHP MySQL App</string>
+    <string name="send">send</string>
+    <string name="view_image">View Image</string>
 </resources>

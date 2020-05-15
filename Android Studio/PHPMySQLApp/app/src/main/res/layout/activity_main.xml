@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/sendButton"
+        android:background="@drawable/ic_launcher_foreground"
+        android:contentDescription="@string/app_name" />
+
     <TextView
         android:id="@+id/myText"
         android:layout_width="match_parent"
@@ -20,6 +28,7 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/sendButton"
         android:layout_below="@+id/myText"
         android:layout_centerHorizontal="true">
 
@@ -29,7 +38,14 @@
         android:id="@+id/sendButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/viewImage"
+        android:text="@string/send" />
+
+    <Button
+        android:id="@+id/viewImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="send" />
+        android:text="@string/view_image" />
 
 </RelativeLayout>
