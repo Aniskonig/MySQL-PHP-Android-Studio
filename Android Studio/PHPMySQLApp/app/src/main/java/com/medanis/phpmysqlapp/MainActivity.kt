@@ -3,19 +3,24 @@ package com.medanis.phpmysqlapp
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import kotlinx.android.synthetic.main.activity_main.*
 import org.apache.http.client.HttpClient
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.DefaultHttpClient
@@ -29,6 +34,7 @@ import java.net.URI
 import java.net.URL
 import java.util.*
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     var listView: ListView? = null
     var adapter: ArrayAdapter<String>? = null
@@ -49,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         // Adapting the listView
         listView = findViewById(R.id.listView)
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1)
-        listView?.setAdapter(adapter)
+        listView?.adapter = adapter
 
         // Executing the Connection Process
         Connection().execute()
@@ -61,6 +67,18 @@ class MainActivity : AppCompatActivity() {
             val d = " la description "
             Sending(n, p, d).execute()
         }
+
+        viewImage.setOnClickListener {
+            imageView.visibility = View.VISIBLE
+            listView?.visibility = View.GONE
+            Glide.with(context)
+                    .load("http://192.168.1.19/MedMax/cardio/ECGs/plot-ecg.png")
+//                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.img_not_found)
+                    .into(imageView)
+        }
+
+
     }
 
     var host = "http://192.168.1.19/store/cars.php"
